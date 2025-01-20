@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/de2120_barcode_scanner-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/de2120_barcode_scanner-{{ version }}.tar.gz
   sha256: 7d8e5fb88cd221213ea3b99493b0acdeb6d16655a1af393b466d4b4be66bf0e0
   # https://github.com/sparkfun/DE2120_Py/issues/2
   patches:
@@ -15,14 +15,14 @@ source:
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - pyserial
 
 test:
@@ -32,6 +32,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://pypi.org/project/de2120-barcode-scanner/
